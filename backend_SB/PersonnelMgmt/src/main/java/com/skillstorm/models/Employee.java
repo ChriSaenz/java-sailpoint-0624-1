@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -13,11 +15,14 @@ public class Employee {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "empl_id")
-	private int emplId;
+	@Column(name = "empl_id") private int emplId;
 	@Column(name = "empl_firstname") private String emplFirstName;
 	@Column(name = "empl_lastname") private String emplLastName;
 	@Column(name = "empl_title") private String emplTitle;
+	
+	//	NOTE: When referencing other models, must define their relationship
+	@ManyToOne
+	@JoinColumn(name="dept_id", referencedColumnName="dept_id")
 	private Department department;
 	
 	public Employee() {super();}
