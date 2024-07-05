@@ -16,12 +16,21 @@ public class EmployeeService {
 	@Autowired private EmployeeRepository repo;
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	/** getAllEmployees
+	 * Makes a basic findAll() call to the database through the repository.
+	 * @return ResponseEntity containing all employees in database table.
+	 */
 	public ResponseEntity<Iterable<Employee>> getAllEmployees() {
 		logger.info("getAllEmployees() resolved successfully");
 		return ResponseEntity.status(200).header("Message", "Returned all employees")
 				.body(repo.findAll());
 	}
 	
+	/** getEmployeeById
+	 * Checks if the database has an employee with the designated id, then if it does, return that employee.
+	 * @param id - Id of employee to get.
+	 * @return ResponseEntity containing the Employee with corresponding id, or null if the operation failed.
+	 */
 	public ResponseEntity<Employee> getEmployeeById(int id) {
 		if(!repo.existsById(id)) {
 			logger.error("getEmployeeById() resulted in error: No Employee exists with id " + id);
@@ -33,6 +42,11 @@ public class EmployeeService {
 				.body(repo.findById(id).get());
 	}
 	
+	/** addEmployee
+	 * Checks if the database has an employee with the id of the employee to add, then if it does NOT, add the specified employee.
+	 * @param employee - Object containing employee to add.
+	 * @return ResponseEntity containing the added Employee, or null if the operation failed.
+	 */
 	public ResponseEntity<Employee> addEmployee(Employee employee) {
 		if(repo.existsById(employee.getEmplId())) {
 			logger.error("addEmployee() resulted in error: An Employee with id " + employee.getEmplId() + " already exists");
@@ -51,7 +65,15 @@ public class EmployeeService {
 		return ResponseEntity.status(500).header("Error", "An error occurred").body(null);
 	}
 	
-
+	/** updateEmployee
+	 * Checks if the database has an employee with the designated idToUpdate, then if it does, update it with the provided information.
+	 * @param idToUpdate - Id of the Employee to update.
+	 * @param emplFirstName - New employee first name.
+	 * @param emplLastName - New employee last name.
+	 * @param emplTitle - New employee title.
+	 * @param department - New department.
+	 * @return ResponseEntity containing the updated Employee, or null if the operation failed.
+	 */
 	public ResponseEntity<Employee> updateEmployee(int idToUpdate, String newFirstName,
 			String newLastName, String newTitle, Department department) {
 		if(!repo.existsById(idToUpdate)) {
@@ -65,6 +87,11 @@ public class EmployeeService {
 						newLastName, newTitle, department)));
 	}
 	
+	/** deleteEmployee
+	 * Checks if the database has an employee with the designated id, then if it does, delete it.
+	 * @param id - Id of the Employee to delete.
+	 * @return ResponseEntity containing the deletedEmployee, or null if operation failed.
+	 */
 	public ResponseEntity<Employee> deleteEmployeeById(int id) {
 		if(!repo.existsById(id)) {
 			logger.error("deleteEmployeeById() resulted in error: No Employee exists with id " + id);

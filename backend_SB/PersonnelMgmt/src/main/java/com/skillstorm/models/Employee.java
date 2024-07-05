@@ -9,18 +9,28 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+/**	Employee
+ * Model class for representing an employee entry.
+ */
 @Entity
 @Table(name = "employee")
 public class Employee {
 	
+	//	ID of Employee in database.
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "empl_id") private int emplId;
+	
+	//	First name of Employee.
 	@Column(name = "empl_firstname") private String emplFirstName;
+	
+	//	Last name of Employee.
 	@Column(name = "empl_lastname") private String emplLastName;
+	
+	//	Employee profession title.
 	@Column(name = "empl_title") private String emplTitle;
 	
-	//	NOTE: When referencing other models, must define their relationship
+	//	Department Employee is in.
 	@ManyToOne
 	@JoinColumn(name="dept_id", referencedColumnName="dept_id")
 	private Department department;

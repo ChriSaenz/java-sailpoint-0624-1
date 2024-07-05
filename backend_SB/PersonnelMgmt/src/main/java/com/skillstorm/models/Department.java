@@ -7,13 +7,19 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**	Department
+ * Model class for representing a department entry.
+ */
 @Entity
 @Table(name = "department")
 public class Department {
-	
+
+	//	ID of department in database.
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "dept_id") private int deptId;
+	
+	//	Name of department.
 	@Column(name = "dept_name") private String deptName;
 	
 	public Department() {super();}
