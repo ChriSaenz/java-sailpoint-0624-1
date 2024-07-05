@@ -1,0 +1,78 @@
+div {
+    margin: 0.5rem;
+}
+
+hr {
+    color: var(--colorAcc3);
+}
+
+.title {
+    padding: 1rem;
+    color: var(--colorAcc2)
+}
+
+table {
+    border: solid 1px var(--colorAcc1);
+    text-align: center;
+    margin: 1rem;
+}
+
+th {
+    background-color: var(--colorAcc3);
+    padding-top: 0.5rem;
+    padding-bottom: 0.25rem;
+}
+
+tr:nth-child(odd) {
+    background-color: var(--colorTbl0);
+}
+tr:nth-child(even) {
+    background-color: var(--colorTbl1);
+}
+
+.stretch3 {
+    width: 33%;
+}
+.stretch2 {
+    width: 50%
+}
+
+.table-btn {
+    transition-duration: 0.35s;
+    display: inline-block;
+    color: var(--colorAcc1);
+    padding: 0.5rem;
+}
+
+.table-btn:hover {
+    transition-duration: 0.35s;
+    background-color: var(--colorAcc2);
+    color: var(--colorBg);
+    cursor: pointer;
+}
+
+.a-btn {
+    transition-duration: 0.35s;
+    display: inline-block;
+    background-color: var(--colorAcc1);
+    color: var(--colorBg);
+    padding: 0.5rem;
+}
+
+.a-btn:hover {
+    transition-duration: 0.35s;
+    background-color: var(--colorBg);
+    color: var(--colorAcc2);
+    cursor: pointer;
+}
+
+form {
+    border: solid 1px var(--colorAcc1);
+    padding: 0.5rem;
+    margin: 1rem;
+}
+
+button {
+    background-color: var(--colorAcc2);
+    color: var(--colorBg);
+}

@@ -1,0 +1,17 @@
+nav {
+    background-color: var(--colorAcc1);
+}
+
+nav * {
+    transition-duration: 0.35s;
+    display: inline-block;
+    text-decoration: none;
+    padding: 0.5em 1.5em 0.5em 1.5em;
+    color: var(--colorBg);
+}
+
+nav a:hover {
+    transition-duration: 0.35s;
+    background-color: var(--colorBg);
+    color: var(--colorAcc2);
+}

@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+    --colorBg: black;
+    --colorAcc1: rgb(255, 100, 0);
+    --colorAcc2: rgb(255, 128, 0);
+    --colorAcc3: rgb(200, 100, 0);
+    --colorTxt: white;
+    --colorTbl0: rgb(40, 10, 0);
+    --colorTbl1: rgb(60, 20, 0);
+}
+
+body {
+    margin: 0;
+    background-color: var(--colorBg);
+    color: var(--colorTxt);
+}

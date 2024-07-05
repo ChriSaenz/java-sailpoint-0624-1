@@ -1,0 +1,59 @@
+<div>
+    <h1 class="title">Departments</h1>
+    <p>: {{msg}}</p>
+    <hr />
+    <!-- <form>
+        <h4>Filters</h4>
+        <label for="nameFilter">Filter by Name </label>
+        <input type="text" id="nameFilter" />
+        <br />
+        <a class="a-btn" (click)="applyFilters()" >Apply Filter</a>
+        <a class="a-btn" (click)="applyFilters()" >Reset Filter</a>
+    </form> -->
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    ID<br />
+                    <button (click)="sortBy('id')">Sort</button>
+                </th>
+                <th class="stretch2">
+                    Name<br />
+                    <button (click)="sortBy('name')">Sort</button>
+                </th>
+                <th class="stretch2">
+                </th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(d of departments; track $index) {
+                <tr>
+                    <td>{{d.deptId}}</td>
+                    <td>{{d.deptName}}</td>
+                    <td>TODO</td>
+                    <td><a class="table-btn" (click)="prepareDepartmentToEdit(d.deptId)">Edit</a></td>
+                    <td><a class="table-btn" (click)="deleteDepartment(d)">Delete</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <form>
+        @if(departmentToEdit != -1) {
+            <h4>Edit Existing Department</h4>
+            <a class="a-btn" (click)="resetAddEditForm(true)">Switch to Add Department</a>
+            <br />
+        } @else {
+            <h4>Add New Department</h4>
+        }
+        <label for="departmentName">Department Name </label>
+        <input type="test" id="departmentName" /><br /><br />
+        @if(departmentToEdit != -1) {
+            <a class="a-btn" (click)="updateDepartment()">Update Department</a>
+        } @else {
+            <a class="a-btn" (click)="createDepartment()">Add Department</a>
+        }
+    </form>
+    <br />
+</div>

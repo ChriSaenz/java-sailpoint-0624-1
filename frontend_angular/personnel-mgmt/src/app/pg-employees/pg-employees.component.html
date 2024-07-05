@@ -1,0 +1,81 @@
+<div>
+    <h1 class="title">Employees</h1>
+    <p>: {{msg}}</p>
+    <hr />
+    <!-- <form>
+        <h4>Filters</h4>
+        <label for="nameFilter">Filter by Name </label>
+        <input type="text" id="nameFilter" />
+        <label for="titleFilter">Filter by Title </label>
+        <input type="dropdown" id="titleFilter" />
+        <label for="deptFilter">Filter by Department </label>
+        <input type="dropdown" id="deptFilter" />
+        <br />
+        <a class="a-btn" (click)="applyFilters()" >Apply Filters</a>
+        <a class="a-btn" (click)="applyFilters()" >Reset Filters</a>
+    </form> -->
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    ID<br />
+                    <button (click)="sortBy('id')">Sort</button>
+                </th>
+                <th class="stretch3">
+                    Name<br />
+                    <button (click)="sortBy('name_first')">Sort First</button>
+                    <button (click)="sortBy('name_last')">Sort Last</button>
+                </th>
+                <th class="stretch3">
+                    Title<br />
+                    <button (click)="sortBy('title')">Sort</button>
+                </th>
+                <th class="stretch3">
+                    Department<br />
+                    <button (click)="sortBy('department')">Sort</button>
+                </th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(e of employees; track $index) {
+                <tr>
+                    <td>{{e.emplId}}</td>
+                    <td>{{e.emplFirstName}} {{e.emplLastName}}</td>
+                    <td>{{e.emplTitle}}</td>
+                    <td>{{e.department.deptName}}</td>
+                    <td><a class="table-btn" (click)="prepareEmployeeToEdit(e.emplId)">Edit</a></td>
+                    <td><a class="table-btn" (click)="deleteEmployee(e)">Delete</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <form>
+        @if(employeeToEdit != -1) {
+            <h4>Edit Existing Employee</h4>
+            <a class="a-btn" (click)="resetAddEditForm(true)">Switch to Add Employee</a>
+            <br />
+        } @else {
+            <h4>Add New Employee</h4>
+        }
+        <label for="employeeFirstName">First Name </label>
+        <input type="test" id="employeeFirstName" />
+        <label for="employeeLastName"> Last Name </label>
+        <input type="test" id="employeeLastName" />
+        <label for="employeeTitle"> Title </label>
+        <input type="test" id="employeeTitle" />
+        <label for="employeeDepartment"> Department </label>
+        <select id="employeeDepartment">
+            @for(d of departments; track $index) {
+                <option value={{d.deptId}}>{{d.deptName}}</option>
+            }
+        </select><br /><br />
+        @if(employeeToEdit != -1) {
+            <a class="a-btn" (click)="updateEmployee()">Update Employee</a>
+        } @else {
+            <a class="a-btn" (click)="createEmployee()">Add Employee</a>
+        }
+    </form>
+    <br />
+</div>
