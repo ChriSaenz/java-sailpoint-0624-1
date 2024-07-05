@@ -22,6 +22,8 @@
                     <button (click)="sortBy('name')">Sort</button>
                 </th>
                 <th class="stretch2">
+                    Number of Employees in Department
+                    <!-- <button (click)="sortBy('employeeNum')">Sort</button> -->
                 </th>
                 <th>Edit</th>
                 <th>Delete</th>
@@ -32,7 +34,7 @@
                 <tr>
                     <td>{{d.deptId}}</td>
                     <td>{{d.deptName}}</td>
-                    <td>TODO</td>
+                    <td>{{employeesInDepts.get(d.deptId)}}</td>
                     <td><a class="table-btn" (click)="prepareDepartmentToEdit(d.deptId)">Edit</a></td>
                     <td><a class="table-btn" (click)="deleteDepartment(d)">Delete</a></td>
                 </tr>

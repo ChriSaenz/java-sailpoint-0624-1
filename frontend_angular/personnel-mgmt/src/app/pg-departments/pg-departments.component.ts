@@ -11,6 +11,7 @@ import { Department } from '../models/department';
 })
 export class PgDepartmentsComponent {
   departments: Department[] = [];
+  employeesInDepts: Map<number, number> = new Map<number, number>();
 
   msg: string = "";
 
@@ -30,6 +31,7 @@ export class PgDepartmentsComponent {
       this.departments.sort((a, b) => {
         return a.deptId - b.deptId;
       });
+      this.countEmployeesInDepts();
     })
   }
 
@@ -87,6 +89,20 @@ export class PgDepartmentsComponent {
   }
 
   //  Misc operations
+
+  countEmployeesInDepts() {
+    this.httpSrv.getAllEmployees().subscribe(resp => {
+      for(let d of this.departments) {
+        this.employeesInDepts.set(d.deptId, 0);
+      }
+      for(let e of resp.body) {
+        let val = this.employeesInDepts.get(e.department.deptId);
+        if(val !== undefined) {
+          this.employeesInDepts.set(e.department.deptId, val + 1);
+        }
+      }
+    });
+  }
 
   getFormElements() {
     return document.getElementById("departmentName") as HTMLInputElement;
