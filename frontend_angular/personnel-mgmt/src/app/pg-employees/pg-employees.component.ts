@@ -24,6 +24,9 @@ export class PgEmployeesComponent {
 
   //  CRUD operations
 
+  /** getAllEmployees
+   * Gets all employees via the HttpService, then puts them in an array to display.
+   */
   getAllEmployees() {
     this.httpSrv.getAllEmployees().subscribe(resp => {
       this.employees = [];
@@ -34,6 +37,10 @@ export class PgEmployeesComponent {
     });
   }
 
+  /** createEmployee
+   * Creates a new employee with information from the form, then posts it via the HttpService.
+   * @returns Nothing, is used to prevent bad data.
+   */
   createEmployee() {
     //  Get data from form, check for validity
     let [elem1, elem2, elem3, elem4] = this.getFormElements();
@@ -55,8 +62,6 @@ export class PgEmployeesComponent {
         }
       }
 
-      // console.log(emplFirstName, emplLastName, emplTitle, emplDept.deptName);
-
       //  Call create
       this.httpSrv.createEmployee(new Employee(-1,  //  ID doesn't matter: autoincrement.
         emplFirstName, emplLastName, emplTitle, emplDept)).subscribe(resp => {
@@ -70,6 +75,10 @@ export class PgEmployeesComponent {
   //  If this is not -1, we know we're editing something and not adding.
   employeeToEdit:number = -1;
 
+  /** updateEmployee
+   * Gathers information from the form, then updates the employee selected to edit with that information.
+   * @returns Nothing, is used to prevent bad data.
+   */
   updateEmployee() {
     let [elem1, elem2, elem3, elem4] = this.getFormElements();
     if(elem1 && elem2 && elem3 && elem4) {
@@ -105,6 +114,11 @@ export class PgEmployeesComponent {
   //  If this is not -1, we know we're ready to delete something.
   employeeToDelete: number = -1;
 
+  /** deleteEmployee
+   * On first use, warns the user about deletion.
+   * On second use passing the same employee, deletes the employee from the database via the HttpService.
+   * @param emp - Employee to delete, used for checking ID and confirming deletion.
+   */
   deleteEmployee(emp: Employee) {
     if(this.employeeToDelete != emp.emplId) {
       this.employeeToDelete = emp.emplId;
@@ -122,6 +136,10 @@ export class PgEmployeesComponent {
 
   //  Misc operations
 
+  /** getFormElements
+   * Used to make referencing form elements easier.
+   * @returns Array of references to HTMLInput/SelectElements, to destructure and verify before use.
+   */
   getFormElements() {
     return [document.getElementById("employeeFirstName") as HTMLInputElement,
       document.getElementById("employeeLastName") as HTMLInputElement,
@@ -129,8 +147,12 @@ export class PgEmployeesComponent {
       document.getElementById("employeeDepartment") as HTMLSelectElement];
   }
 
-  applyFilters() {/* TODO */}
+  applyFilters() {/* TOOD */}
 
+  /** resetAddEditForm
+   * Resets information and state of the Add/Update Employee form.
+   * @param calledFromButton - Used for printing message of reset or not.
+   */
   resetAddEditForm(calledFromButton: boolean) {
     let [elem1, elem2, elem3, elem4] = this.getFormElements();
     if(elem1 && elem2 && elem3 && elem4) {
@@ -144,6 +166,9 @@ export class PgEmployeesComponent {
     this.msg = calledFromButton ? "Reset Employee form." : "";
   }
 
+  /** updateDepartmentDropdown
+   * Called to update the results in the dropdown menu in the Add/Update Employee form.
+   */
   updateDepartmentDropdown() {
     this.httpSrv.getAllDepartments().subscribe(resp => {
       this.departments = [];
@@ -156,6 +181,10 @@ export class PgEmployeesComponent {
     });
   }
   
+  /** prepareEmployeeToEdit
+   * Called to load employee information into the Add/Edit Employee form so the user can edit the employee easily.
+   * @param id - Id of Employee to edit.
+   */
   prepareEmployeeToEdit(id: number) {
     this.httpSrv.getEmployeeById(id).subscribe(resp => {
       this.employeeToEdit = id;
@@ -172,6 +201,9 @@ export class PgEmployeesComponent {
     this.employeeToDelete = -1;
   }
 
+  /** sortBy
+   * A series of sorts to be used for the columns of the display table.
+   */
   sortBy(field: string) {
     switch(field) {
       case "id": {

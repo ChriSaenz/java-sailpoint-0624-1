@@ -17,6 +17,9 @@ export class PgHomeComponent {
     this.loadDepartmentCount();
   }
 
+  /** loadEmployeeCount
+   * Loads how many employees are in the database into a variable to display.
+   */
   loadEmployeeCount() {
     this.httpSrv.getAllEmployees().subscribe(resp => {
       this.emplCount = 0;
@@ -24,6 +27,9 @@ export class PgHomeComponent {
     });
   }
 
+  /** loadDepartmentCount
+   * Loads how many departments are in the database into a variable to display.
+   */
   loadDepartmentCount() {
     this.httpSrv.getAllDepartments().subscribe(resp => {
       this.deptCount = 0;

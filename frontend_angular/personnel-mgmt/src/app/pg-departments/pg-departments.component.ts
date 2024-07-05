@@ -22,6 +22,9 @@ export class PgDepartmentsComponent {
 
   //  CRUD operations
 
+  /** getAllDepartments
+   * Gets all departments via the HttpService, then puts them in an array to display.
+   */
   getAllDepartments() {
     this.httpSrv.getAllDepartments().subscribe(resp => {
       this.departments = [];
@@ -35,6 +38,10 @@ export class PgDepartmentsComponent {
     })
   }
 
+  /** createDepartment
+   * Creates a new department with information from the form, then posts it via the HttpService.
+   * @returns Nothing, is used to prevent bad data.
+   */
   createDepartment() {
     let formElem = this.getFormElements();
     if(formElem) {
@@ -52,8 +59,13 @@ export class PgDepartmentsComponent {
     }
   }
 
+  //  If this is not -1, we know we're editing something and not adding.
   departmentToEdit: number = -1;
 
+  /** updateDepartment
+   * Gathers information from the form, then updates the department selected to edit with that information.
+   * @returns Nothing, is used to prevent bad data.
+   */
   updateDepartment() {
     let formElem = this.getFormElements();
     if(formElem) {
@@ -72,8 +84,14 @@ export class PgDepartmentsComponent {
     }
   }
 
+  //  If this is not -1, we know we're ready to delete something.
   departmentToDelete: number = -1;
 
+  /** deleteDepartment
+   * On first use, warns the user about deletion.
+   * On second use passing the same department, deletes the department from the database via the HttpService.
+   * @param emp - Department to delete, used for checking ID and confirming deletion.
+   */
   deleteDepartment(dept: Department) {
     if(this.departmentToDelete != dept.deptId) {
       this.departmentToDelete = dept.deptId;
@@ -90,6 +108,10 @@ export class PgDepartmentsComponent {
 
   //  Misc operations
 
+  /** countEmployeesInDepts
+   * Fills out the Map for counting how many Employees there are in each Department.
+   * This Map is used for display in a table column.
+   */
   countEmployeesInDepts() {
     this.httpSrv.getAllEmployees().subscribe(resp => {
       for(let d of this.departments) {
@@ -104,14 +126,20 @@ export class PgDepartmentsComponent {
     });
   }
 
+  /** getFormElements
+   * Used to make referencing form elements easier.
+   * @returns Array of references to HTMLInput/SelectElements, to destructure and verify before use.
+   */
   getFormElements() {
     return document.getElementById("departmentName") as HTMLInputElement;
   }
 
-  applyFilters() {
-    // TOOD
-  }
+  applyFilters() {/* TOOD */}
 
+  /** resetAddEditForm
+   * Resets information and state of the Add/Update Department form.
+   * @param calledFromButton - Used for printing message of reset or not.
+   */
   resetAddEditForm(calledFromButton: boolean) {
     let formElem = this.getFormElements();
     if(formElem) {
@@ -122,6 +150,10 @@ export class PgDepartmentsComponent {
     this.msg = calledFromButton ? "Reset Department form." : "";
   }
 
+  /** prepareDepartmentToEdit
+   * Called to load department information into the Add/Edit Department form so the user can edit the department easily.
+   * @param id - Id of Department to edit.
+   */
   prepareDepartmentToEdit(id: number) {
     this.httpSrv.getDepartmentById(id).subscribe(resp => {
       this.departmentToEdit = id;
@@ -135,6 +167,9 @@ export class PgDepartmentsComponent {
     this.departmentToDelete = -1;
   }
 
+  /** sortBy
+   * A series of sorts to be used for the columns of the display table.
+   */
   sortBy(field: string) {
     switch(field) {
       case "id": {
